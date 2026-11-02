@@ -121,7 +121,7 @@ if(m){try{const o=dec(m[1]);$('#org').classList.add('hid');$('#rev').classList.r
  $('#rWish').innerHTML='<b>🎁 Su lista de deseos:</b><br>'+(o.w?esc(o.w):'No dejó lista… ¡sorpréndelo!');
  $('#gift').onclick=()=>{$('#gift').style.animation='none';$('#gift').textContent='🎉';$('#rOut').classList.remove('hid');confetti()}}catch(e){toast('Link no válido')}}
 else if(st.a&&st.a.length===st.p.length)showRes();
-render();
+render();addEventListener('hashchange',()=>location.reload());
 // confeti
 const cv=$('#conf'),x=cv.getContext('2d');let P=[];
 function confetti(){cv.width=innerWidth;cv.height=innerHeight;for(let i=0;i<150;i++)P.push({x:innerWidth/2,y:innerHeight/3,vx:(Math.random()-.5)*14,vy:Math.random()*-12-2,r:Math.random()*360,c:['#c8102e','#0f5132','#f2c14e','#fff'][i%4],l:120});if(P.length<=150)loop()}
