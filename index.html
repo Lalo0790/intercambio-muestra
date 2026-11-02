@@ -1,0 +1,129 @@
+<!doctype html><html lang="es-MX"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Intercambio Navideño · Sorteo secreto</title>
+<meta name="description" content="Organiza tu intercambio navideño: sorteo secreto, presupuesto, fecha y lista de deseos. Demo de Eduardo García Soluciones.">
+<meta property="og:title" content="🎁 Intercambio navideño"><meta property="og:description" content="Descubre a quién te tocó regalar 🤫">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--r:#c8102e;--g:#0f5132;--gold:#f2c14e;--bg:#fff8f0}
+body{font-family:Montserrat,sans-serif;background:var(--bg);color:#2b1a12;min-height:100vh}
+header{background:linear-gradient(135deg,#c8102e,#8a0a1f);color:#fff;padding:26px 20px 60px;text-align:center;position:relative;overflow:hidden}
+header:after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:40px;background:var(--bg);border-radius:50% 50% 0 0/100% 100% 0 0}
+header .t{font-family:'Great Vibes',cursive;font-size:46px;line-height:1;color:var(--gold)}
+header h1{font-weight:900;font-size:24px;letter-spacing:.02em;margin-top:4px}
+header p{font-size:13px;opacity:.9;margin-top:6px}
+.flake{position:absolute;color:#fff8;animation:fall linear infinite;top:-20px}
+@keyframes fall{to{transform:translateY(260px) rotate(360deg)}}
+main{max-width:480px;margin:-30px auto 0;padding:0 16px 40px;position:relative}
+.box{background:#fff;border-radius:20px;padding:20px;box-shadow:0 10px 30px #8a0a1f18;margin-bottom:16px}
+.box h2{font-size:16px;font-weight:800;margin-bottom:12px;display:flex;gap:8px;align-items:center}
+.n{background:var(--r);color:#fff;width:26px;height:26px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:13px}
+label{font-size:12px;font-weight:600;color:#7a5a4a;display:block;margin:10px 0 4px}
+input,textarea{width:100%;padding:13px;border:1.5px solid #eadbd0;border-radius:12px;font:15px Montserrat;background:#fffdfb}
+input:focus,textarea:focus{outline:0;border-color:var(--r)}
+.row{display:flex;gap:10px}.row>div{flex:1}
+.btn{width:100%;border:0;border-radius:40px;padding:16px;font:800 15px Montserrat;cursor:pointer;margin-top:12px}
+.pri{background:var(--r);color:#fff;box-shadow:0 8px 20px #c8102e44}
+.sec{background:#f4ece5;color:#5a3a2a}
+.wa{background:#25d366;color:#04361b}
+.p{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px dashed #eadbd0}
+.av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;flex:none}
+.p .i{flex:1;min-width:0}.p b{display:block;font-size:14px}.p small{color:#8a6a5a;font-size:12px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.x{border:0;background:none;font-size:18px;color:#c9a;cursor:pointer}
+.send{border:0;background:#25d366;color:#04361b;font:800 12px Montserrat;padding:9px 12px;border-radius:20px;text-decoration:none;white-space:nowrap}
+.chip{display:inline-block;background:#fff4d6;color:#7a5a00;border-radius:20px;padding:6px 12px;font-size:12px;font-weight:700;margin:3px}
+.hid{display:none}
+.reveal{text-align:center}
+.gift{font-size:110px;margin:20px 0;cursor:pointer;display:inline-block;animation:shake 1.2s infinite}
+@keyframes shake{0%,100%{transform:rotate(0)}20%{transform:rotate(-8deg)}40%{transform:rotate(8deg)}60%{transform:rotate(-4deg)}}
+.who{font-size:38px;font-weight:900;color:var(--r);margin:6px 0;animation:pop .6s cubic-bezier(.2,1.6,.4,1)}
+@keyframes pop{from{transform:scale(0)}}
+.wish{background:#fff8e6;border-left:4px solid var(--gold);text-align:left;padding:14px;border-radius:10px;margin-top:14px;font-size:14px;line-height:1.5}
+.foot{text-align:center;font-size:11px;color:#a08070;margin-top:20px;line-height:1.6}.foot b{color:var(--r)}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#2b1a12;color:#fff;padding:12px 18px;border-radius:30px;font-size:13px;opacity:0;transition:.3s;z-index:9}
+.toast.on{opacity:1}
+#conf{position:fixed;inset:0;pointer-events:none;z-index:8}
+</style></head><body>
+<canvas id="conf"></canvas>
+<header id="hd"><div class="t">Intercambio</div><h1>NAVIDEÑO 🎁</h1><p>Sorteo secreto en 1 minuto · Sin apps · Por WhatsApp</p></header>
+<main>
+<!-- ORGANIZAR -->
+<section id="org">
+ <div class="box"><h2><span class="n">1</span>Datos del intercambio</h2>
+  <label>Nombre del grupo</label><input id="gN" value="Posada Familia Hernández">
+  <div class="row"><div><label>Presupuesto</label><input id="gB" value="Hasta $500"></div><div><label>Fecha</label><input id="gD" type="date" value="2026-12-20"></div></div>
+  <label>Lugar / nota</label><input id="gL" value="Casa de la abuela · 7:00 pm">
+ </div>
+ <div class="box"><h2><span class="n">2</span>Participantes <span id="cnt" class="chip">0</span></h2>
+  <div id="list"></div>
+  <label>Nombre</label><input id="pN" placeholder="Ej. Tía Lupita">
+  <label>Lista de deseos (opcional)</label><input id="pW" placeholder="Ej. Una taza bonita, chocolates, libro">
+  <button class="btn sec" id="add">+ Agregar participante</button>
+ </div>
+ <button class="btn pri" id="draw">🎲 Hacer el sorteo secreto</button>
+</section>
+<!-- RESULTADOS ORGANIZADOR -->
+<section id="res" class="hid">
+ <div class="box"><h2>✅ ¡Sorteo listo!</h2>
+  <p style="font-size:14px;line-height:1.5;color:#5a3a2a">Nadie, ni tú, sabe quién le tocó a quién. Manda a cada persona su <b>link privado</b> por WhatsApp.</p>
+  <div id="sum" style="margin:10px 0"></div>
+  <div id="links"></div>
+  <button class="btn sec" id="again">↺ Volver a sortear</button>
+  <button class="btn sec" id="nuevo">Nuevo intercambio</button>
+ </div>
+</section>
+<!-- REVELAR -->
+<section id="rev" class="hid">
+ <div class="box reveal">
+  <p style="font-weight:700;color:#8a6a5a" id="rHola"></p>
+  <p style="font-size:13px;color:#a08070;margin-top:4px">Toca el regalo para descubrir a quién le regalas 🤫</p>
+  <div class="gift" id="gift">🎁</div>
+  <div id="rOut" class="hid">
+   <p style="font-size:13px;font-weight:700;letter-spacing:.1em;color:#8a6a5a">TE TOCÓ REGALARLE A</p>
+   <div class="who" id="rWho"></div>
+   <div id="rChips"></div>
+   <div class="wish" id="rWish"></div>
+  </div>
+ </div>
+</section>
+<p class="foot">Demo de muestra con datos de ejemplo.<br>Hecho por <b>Eduardo García Soluciones</b> · Webs · Bots · Apps</p>
+</main>
+<div class="toast" id="toast"></div>
+<script>
+const $=s=>document.querySelector(s);const K='intercambio_demo';
+const C=['#c8102e','#0f5132','#d97706','#7c3aed','#0369a1','#be185d','#15803d','#b45309'];
+let st=JSON.parse(localStorage.getItem(K)||'null')||{p:[{n:'Abuela Rosa',w:'Una cobija calientita o un rebozo'},{n:'Tío Beto',w:'Algo del América ⚽'},{n:'Mariana',w:'Maquillaje o una agenda 2027'},{n:'Luis',w:'Audífonos o un videojuego'},{n:'Mamá Lety',w:'Una planta y chocolates'},{n:'Primo Iván',w:'Una gorra o tenis (talla 27)'}],a:null};
+const save=()=>localStorage.setItem(K,JSON.stringify(st));
+const toast=t=>{const e=$('#toast');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),2200)};
+const enc=o=>btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+const dec=s=>JSON.parse(decodeURIComponent(escape(atob(s.replace(/-/g,'+').replace(/_/g,'/')))));
+const fd=d=>{try{return new Date(d+'T12:00').toLocaleDateString('es-MX',{weekday:'long',day:'numeric',month:'long'})}catch(e){return d}};
+for(let i=0;i<14;i++){const f=document.createElement('span');f.className='flake';f.textContent='❄';f.style.left=Math.random()*100+'%';f.style.fontSize=(10+Math.random()*14)+'px';f.style.animationDuration=(4+Math.random()*5)+'s';f.style.animationDelay=(-Math.random()*6)+'s';$('#hd').appendChild(f)}
+['gN','gB','gD','gL'].forEach(k=>{if(st[k])$('#'+k).value=st[k];$('#'+k).oninput=()=>{st[k]=$('#'+k).value;save()}});
+function render(){$('#list').innerHTML=st.p.map((p,i)=>`<div class="p"><div class="av" style="background:${C[i%8]}">${p.n[0].toUpperCase()}</div><div class="i"><b>${esc(p.n)}</b><small>${p.w?'🎁 '+esc(p.w):'Sin lista de deseos'}</small></div><button class="x" data-i="${i}">✕</button></div>`).join('');$('#cnt').textContent=st.p.length;
+ document.querySelectorAll('.x').forEach(b=>b.onclick=()=>{st.p.splice(b.dataset.i,1);st.a=null;save();render()})}
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+$('#add').onclick=()=>{const n=$('#pN').value.trim();if(!n)return toast('Escribe un nombre');if(st.p.some(p=>p.n.toLowerCase()==n.toLowerCase()))return toast('Ese nombre ya está');st.p.push({n,w:$('#pW').value.trim()});$('#pN').value=$('#pW').value='';st.a=null;save();render();$('#pN').focus()};
+function derange(n){let a;do{a=[...Array(n).keys()];for(let i=n-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}}while(a.some((v,i)=>v===i));return a}
+function g(){return{g:$('#gN').value,b:$('#gB').value,d:$('#gD').value,l:$('#gL').value}}
+function showRes(){const G=g();$('#org').classList.add('hid');$('#res').classList.remove('hid');
+ $('#sum').innerHTML=`<span class="chip">👥 ${st.p.length} personas</span><span class="chip">💰 ${esc(G.b)}</span><span class="chip">📅 ${fd(G.d)}</span>`;
+ const base=location.origin+location.pathname;
+ $('#links').innerHTML=st.p.map((p,i)=>{const r=st.p[st.a[i]];const u=base+'#r='+enc({...G,y:p.n,t:r.n,w:r.w});const txt=`🎄 ¡Hola ${p.n}! Ya se hizo el sorteo del intercambio "${G.g}" 🎁\nAbre tu link secreto para ver a quién le regalas (¡no lo enseñes! 🤫):\n${u}`;
+ return `<div class="p"><div class="av" style="background:${C[i%8]}">${p.n[0].toUpperCase()}</div><div class="i"><b>${esc(p.n)}</b><small>Link privado 🔒</small></div><a class="send" target="_blank" href="https://wa.me/?text=${encodeURIComponent(txt)}">Enviar</a></div>`}).join('');window.scrollTo(0,0)}
+$('#draw').onclick=()=>{if(st.p.length<3)return toast('Agrega al menos 3 participantes');st.a=derange(st.p.length);save();confetti();showRes()};
+$('#again').onclick=()=>{st.a=derange(st.p.length);save();confetti();showRes();toast('¡Nuevo sorteo hecho!')};
+$('#nuevo').onclick=()=>{st.a=null;save();$('#res').classList.add('hid');$('#org').classList.remove('hid')};
+// revelar
+const m=location.hash.match(/r=([^&]+)/);
+if(m){try{const o=dec(m[1]);$('#org').classList.add('hid');$('#rev').classList.remove('hid');$('#rHola').textContent=`¡Hola ${o.y}! · ${o.g}`;
+ $('#rWho').textContent=o.t;$('#rChips').innerHTML=`<span class="chip">💰 ${esc(o.b)}</span><span class="chip">📅 ${fd(o.d)}</span>`+(o.l?`<span class="chip">📍 ${esc(o.l)}</span>`:'');
+ $('#rWish').innerHTML='<b>🎁 Su lista de deseos:</b><br>'+(o.w?esc(o.w):'No dejó lista… ¡sorpréndelo!');
+ $('#gift').onclick=()=>{$('#gift').style.animation='none';$('#gift').textContent='🎉';$('#rOut').classList.remove('hid');confetti()}}catch(e){toast('Link no válido')}}
+else if(st.a&&st.a.length===st.p.length)showRes();
+render();
+// confeti
+const cv=$('#conf'),x=cv.getContext('2d');let P=[];
+function confetti(){cv.width=innerWidth;cv.height=innerHeight;for(let i=0;i<150;i++)P.push({x:innerWidth/2,y:innerHeight/3,vx:(Math.random()-.5)*14,vy:Math.random()*-12-2,r:Math.random()*360,c:['#c8102e','#0f5132','#f2c14e','#fff'][i%4],l:120});if(P.length<=150)loop()}
+function loop(){x.clearRect(0,0,cv.width,cv.height);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.3;p.vx*=.99;p.r+=8;p.l--;x.save();x.translate(p.x,p.y);x.rotate(p.r*Math.PI/180);x.fillStyle=p.c;x.fillRect(-4,-7,8,14);x.restore()});P=P.filter(p=>p.l>0);if(P.length)requestAnimationFrame(loop);else x.clearRect(0,0,cv.width,cv.height)}
+</script></body></html>
